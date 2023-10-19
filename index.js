@@ -1,5 +1,6 @@
 import dotenv from 'dotenv/config.js'
-
+import swaggerUi from 'swagger-ui-express'
+import swaggerFile from './swagger.json' assert { type: 'json' }
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api', routes)
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 const PORT = process.env.PORT || 3000
 

@@ -2,6 +2,8 @@ import supabase from '../config/supabase.js'
 
 // get all books
 const getBooks = async (req, res) => {
+  // #swagger.tags = ['Books']
+
   try {
     const { data, error } = await supabase.from('books').select()
     if (error) {
@@ -24,6 +26,8 @@ const getBooks = async (req, res) => {
 
 // get book by id
 const getBookById = async (req, res) => {
+  // #swagger.tags = ['Books']
+
   try {
     const { id } = req.params
     const { data, error } = await supabase
@@ -56,6 +60,8 @@ const getBookById = async (req, res) => {
 
 // remove book
 const deleteBook = async (req, res) => {
+  // #swagger.tags = ['Books']
+
   try {
     const { id } = req.params
     const decode = req.decoded
@@ -87,6 +93,8 @@ const deleteBook = async (req, res) => {
 
 // create a book
 const createBook = async (req, res) => {
+  // #swagger.tags = ['Books']
+
   try {
     const { title, author, price, stock } = req.body
     const decode = req.decoded

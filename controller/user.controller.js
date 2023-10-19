@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs'
 
 // get User
 const getUser = async (req, res) => {
+  // #swagger.tags = ['User']
+
   try {
     const decode = req.decoded
     console.log('decode', decode)
@@ -39,6 +41,8 @@ const getUser = async (req, res) => {
 
 // get User by id
 const getUserById = async (req, res) => {
+  // #swagger.tags = ['User']
+
   try {
     const { id } = req.params
     const { data, error } = await supabase
@@ -64,6 +68,8 @@ const getUserById = async (req, res) => {
 
 // update User
 const updateUser = async (req, res) => {
+  // #swagger.tags = ['User']
+
   try {
     const { id } = req.params
     const { name, email, password, isAdmin } = req.body
@@ -97,6 +103,8 @@ const updateUser = async (req, res) => {
 
 // remove User
 const deleteUser = async (req, res) => {
+  // #swagger.tags = ['User']
+
   try {
     const { id } = req.params
     const { error } = await supabase.from('users').delete().eq('id', id)

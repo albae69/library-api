@@ -2,6 +2,8 @@ import supabase from '../config/supabase.js'
 
 // get all order
 const getOrders = async (req, res) => {
+  // #swagger.tags = ['Order']
+
   try {
     const { data, error } = await supabase
       .from('orders')
@@ -22,6 +24,8 @@ const getOrders = async (req, res) => {
 }
 
 const createOrder = async (req, res) => {
+  // #swagger.tags = ['Order']
+
   try {
     const { total_price } = req.body
     const user = req.decoded

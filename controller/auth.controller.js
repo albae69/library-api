@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 const login = async (req, res) => {
+  // #swagger.tags = ['Auth']
   try {
     const { email, password } = req.body
 
@@ -57,6 +58,8 @@ const login = async (req, res) => {
 }
 
 const register = async (req, res) => {
+  // #swagger.tags = ['Auth']
+
   try {
     // get user input
     const { name, email, password, isAdmin } = req.body
