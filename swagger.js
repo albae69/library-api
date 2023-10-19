@@ -5,7 +5,7 @@ const doc = {
     title: 'Library API',
     description: 'Library API Documentation',
   },
-  host: process.env.BASE_URL || 'localhost:3000',
+  host: 'https://api-library.cyclic.app',
   schemes: ['http', 'https'],
 }
 
