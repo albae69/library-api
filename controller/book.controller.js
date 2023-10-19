@@ -1,4 +1,4 @@
-const supabase = require('../config/supabase')
+import supabase from '../config/supabase.js'
 
 // get all books
 const getBooks = async (req, res) => {
@@ -39,4 +39,4 @@ const deleteBook = async (req, res) => {
   }
 }
 
-module.exports = { getBooks, deleteBook }
+export { getBooks, deleteBook }

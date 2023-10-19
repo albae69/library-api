@@ -1,12 +1,10 @@
-if (process.env.ENV != 'production') {
-  require('dotenv').config()
-}
+import dotenv from 'dotenv/config.js'
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
 // import routes
-const routes = require('./routes')
+import routes from './routes/index.js'
 
 // init express
 const app = express()
@@ -20,10 +18,7 @@ app.use(cors())
 
 // router
 app.get('/', (req, res) => {
-  return res.json({
-    success: true,
-    message: 'Library API',
-  })
+  return res.send('<h1>Library API</h1>')
 })
 
 app.use('/api', routes)

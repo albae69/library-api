@@ -1,7 +1,7 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 
-const { getBooks, deleteBook } = require('../controller/book.controller')
+import { getBooks, deleteBook } from '../controller/book.controller.js'
 
 // GET - ALl Books
 router.get('/', getBooks)
@@ -9,4 +9,4 @@ router.get('/', getBooks)
 // DELETE - BOOK
 router.delete('/:id', deleteBook)
 
-module.exports = router
+export default router

@@ -1,5 +1,5 @@
-const supabase = require('../config/supabase')
-const bcrypt = require('bcryptjs')
+import supabase from '../config/supabase.js'
+import bcrypt from 'bcryptjs'
 
 // get User
 const getUser = async (req, res) => {
@@ -102,9 +102,4 @@ const deleteUser = async (req, res) => {
   }
 }
 
-module.exports = {
-  getUser,
-  getUserById,
-  updateUser,
-  deleteUser,
-}
+export { getUser, getUserById, updateUser, deleteUser }

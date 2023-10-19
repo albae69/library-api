@@ -1,6 +1,6 @@
-const supabase = require('../config/supabase')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+import supabase from '../config/supabase.js'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 const login = async (req, res) => {
   try {
@@ -101,4 +101,4 @@ const register = async (req, res) => {
   }
 }
 
-module.exports = { login, register }
+export { login, register }
