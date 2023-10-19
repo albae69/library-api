@@ -26,10 +26,19 @@ const getBooks = async (req, res) => {
 const getBookById = async (req, res) => {
   try {
     const { id } = req.params
-    const { data, error } = await supabase.from('books').select('').eq('id', id)
+    const { data, error } = await supabase
+      .from('books')
+      .select()
+      .eq('id', id)
+      .single()
+
     if (error) {
       console.log('error while getBooks', error)
-      res.send(error)
+      res.json({
+        success: false,
+        message: 'Book not found',
+      })
+      return
     }
     res.json({
       success: true,
@@ -62,4 +71,33 @@ const deleteBook = async (req, res) => {
   }
 }
 
-export { getBooks, getBookById, deleteBook }
+// create a book
+const createBook = async (req, res) => {
+  try {
+    const { title, author, price, stock } = req.body
+
+    const { data, error } = await supabase
+      .from('books')
+      .insert([{ title, author, price, stock }])
+      .select()
+
+    if (error) {
+      res.send(error)
+      return
+    }
+
+    res.json({
+      success: true,
+      message: 'Succesfully create book',
+      data: data,
+    })
+  } catch (error) {
+    console.log('error while create book', error)
+    res.status(500).send({
+      success: false,
+      message: error?.message,
+    })
+  }
+}
+
+export { getBooks, getBookById, deleteBook, createBook }

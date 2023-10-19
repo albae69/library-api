@@ -5,46 +5,54 @@ import jwt from 'jsonwebtoken'
 const login = async (req, res) => {
   try {
     const { email, password } = req.body
+
     // validate user input
     if (!email && !password) {
-      res.status(400).send('Please fill all the required fields')
+      res.status(400).send({
+        success: false,
+        message: 'Email or Password should not be empty',
+      })
     }
 
     const { data, error } = await supabase
       .from('users')
-      .select('*')
+      .select()
       .eq('email', email)
-    let user = data[0]
-    const hashPassword = await bcrypt.compare(password, user.password)
-    if (hashPassword) {
-      const token = jwt.sign(
-        {
-          id: user.id,
-          email,
-        },
-        process.env.JWT_SECRET,
-        { expiresIn: '2h' }
-      )
 
-      //save user token
-      user.token = token
+    if (error) {
+      console.log('error', error)
+    }
 
-      res.status(200).send({
-        success: true,
-        message: 'Success login',
-        data: user,
-      })
+    if (data.length > 0) {
+      let user = data[0]
+      const hashPassword = await bcrypt.compare(password, user.password)
+      if (hashPassword) {
+        const token = jwt.sign(user, process.env.JWT_SECRET, {
+          expiresIn: '2h',
+        })
+
+        // remove from response
+        delete user['password']
+
+        res.json({
+          success: true,
+          message: 'Success login',
+          data: { ...user, token: token },
+        })
+      } else {
+        res.json({
+          success: false,
+          message: 'email or password is wrong!',
+        })
+      }
     } else {
-      res.send({
+      res.status(404).send({
         success: false,
-        message: 'email or password is wrong!',
+        message: 'User not found!',
       })
     }
   } catch (error) {
-    res.status(500).send({
-      success: false,
-      message: error,
-    })
+    console.log('error', error)
   }
 }
 
@@ -78,7 +86,7 @@ const register = async (req, res) => {
       .insert([
         { name, email, password: hashPassword, isAdmin: isAdmin || false },
       ])
-      .select()
+      .select('id,name,email,isAdmin')
 
     if (error) {
       res.status(500).send({
@@ -96,7 +104,7 @@ const register = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       success: false,
-      message: error,
+      message: error?.message,
     })
   }
 }

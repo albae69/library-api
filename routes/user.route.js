@@ -7,6 +7,9 @@ import {
   updateUser,
   deleteUser,
 } from '../controller/user.controller.js'
+import { verifToken } from '../middleware/auth.js'
+
+router.use(verifToken)
 
 // GET - ALl User
 router.get('/', getUser)

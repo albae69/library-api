@@ -4,7 +4,17 @@ import bcrypt from 'bcryptjs'
 // get User
 const getUser = async (req, res) => {
   try {
-    const { data, error } = await supabase.from('users').select('*')
+    const decode = req.decoded
+    console.log('decode', decode)
+    if (!decode?.isAdmin) {
+      res.send({
+        success: false,
+        message: 'This feature access is only admin',
+      })
+    }
+    const { data, error } = await supabase
+      .from('users')
+      .select('name,email,isAdmin')
     if (error) {
       res.json({
         success: false,
@@ -21,7 +31,7 @@ const getUser = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       success: false,
-      message: error,
+      message: error?.message,
     })
   }
 }

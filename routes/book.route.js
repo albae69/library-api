@@ -5,7 +5,9 @@ import {
   getBooks,
   deleteBook,
   getBookById,
+  createBook,
 } from '../controller/book.controller.js'
+import { verifToken } from '../middleware/auth.js'
 
 // GET - ALl Books
 router.get('/', getBooks)
@@ -15,5 +17,8 @@ router.get('/:id', getBookById)
 
 // DELETE - BOOK
 router.delete('/:id', deleteBook)
+
+// POST - Create Book
+router.post('/', verifToken, createBook)
 
 export default router
