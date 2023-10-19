@@ -58,13 +58,27 @@ const getBookById = async (req, res) => {
 const deleteBook = async (req, res) => {
   try {
     const { id } = req.params
+    const decode = req.decoded
+    if (!decode?.isAdmin) {
+      res.send({
+        success: false,
+        message: 'Only admin can remove a book',
+      })
+      return
+    }
     const { error } = await supabase.from('books').delete().eq('id', id)
+
+    if (error) {
+      console.log('error', error)
+      res.status(500).send(error)
+    }
+
     res.json({
       success: true,
       message: 'Succes remove book',
     })
   } catch (error) {
-    res.json({
+    res.status(500).send({
       success: false,
       message: error?.message,
     })
@@ -75,14 +89,21 @@ const deleteBook = async (req, res) => {
 const createBook = async (req, res) => {
   try {
     const { title, author, price, stock } = req.body
-
+    const decode = req.decoded
+    if (!decode?.isAdmin) {
+      res.send({
+        success: false,
+        message: 'Only admin can create a book',
+      })
+      return
+    }
     const { data, error } = await supabase
       .from('books')
       .insert([{ title, author, price, stock }])
       .select()
 
     if (error) {
-      res.send(error)
+      res.status(500).send(error)
       return
     }
 

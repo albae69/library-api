@@ -16,7 +16,7 @@ router.get('/', getBooks)
 router.get('/:id', getBookById)
 
 // DELETE - BOOK
-router.delete('/:id', deleteBook)
+router.delete('/:id', verifToken, deleteBook)
 
 // POST - Create Book
 router.post('/', verifToken, createBook)

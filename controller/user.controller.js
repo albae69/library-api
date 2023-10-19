@@ -11,16 +11,17 @@ const getUser = async (req, res) => {
         success: false,
         message: 'This feature access is only admin',
       })
+      return
     }
     const { data, error } = await supabase
       .from('users')
-      .select('name,email,isAdmin')
+      .select('id,name,email,isAdmin')
     if (error) {
       res.json({
         success: false,
         message: 'Failed to get user',
       })
-      return false
+      return
     }
 
     res.json({
@@ -40,25 +41,24 @@ const getUser = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params
-    const { data, error } = await supabase.from('users').select().eq('id', id)
+    const { data, error } = await supabase
+      .from('users')
+      .select('id,name,email,isAdmin')
+      .eq('id', id)
+      .single()
+
     if (error) {
-      res.json({
-        success: false,
-        message: 'Failed to get user',
-      })
-      return false
+      res.status(500).send(error)
+      return
     }
 
-    res.json({
+    res.send({
       success: true,
       message: 'Successfuly get user detail',
       data: data,
     })
   } catch (error) {
-    res.json({
-      success: false,
-      message: error,
-    })
+    res.status(500).send(error)
   }
 }
 
