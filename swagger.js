@@ -5,8 +5,18 @@ const doc = {
     title: 'Library API',
     description: 'Library API Documentation',
   },
-  host: 'api-library.cyclic.app',
-  schemes: ['https'],
+  host: 'localhost:3000',
+  // host: 'api-library.cyclic.app',
+  schemes: ['http', 'https'],
+  consumes: ['application/json'],
+  produces: ['application/json'],
+  securityDefinitions: {
+    Bearer: {
+      type: 'apiKey',
+      name: 'Authorization',
+      in: 'header',
+    },
+  },
 }
 
 const outputFile = './swagger.json'

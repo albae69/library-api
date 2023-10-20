@@ -2,8 +2,11 @@ import jwt, { decode } from 'jsonwebtoken'
 
 const verifToken = (req, res, next) => {
   try {
+    /* #swagger.security = [{
+                "Bearer": []
+        }] */
     let bearer = req.headers['authorization']
-    let token = bearer.split(' ')[1]
+    let token = bearer.split(' ')[1] || bearer
 
     if (!token) {
       return res.status(403).send({

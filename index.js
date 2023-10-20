@@ -23,7 +23,13 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api', routes)
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use(
+  '/docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerFile, {
+    swaggerOptions: { persistAuthorization: true },
+  })
+)
 
 const PORT = process.env.PORT || 3000
 
