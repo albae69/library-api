@@ -19,6 +19,7 @@ const verifToken = (req, res, next) => {
             success: false,
             message: err.message,
           })
+          return
         }
         req.decoded = decode
         next()

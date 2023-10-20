@@ -5,8 +5,8 @@ const doc = {
     title: 'Library API',
     description: 'Library API Documentation',
   },
-  host: 'https://api-library.cyclic.app',
-  schemes: ['http', 'https'],
+  host: 'api-library.cyclic.app',
+  schemes: ['https'],
 }
 
 const outputFile = './swagger.json'

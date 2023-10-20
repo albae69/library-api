@@ -8,16 +8,15 @@ const getUser = async (req, res) => {
   try {
     const decode = req.decoded
     console.log('decode', decode)
+
+    let query = supabase.from('users').select('id,name,email,isAdmin')
+
     if (!decode?.isAdmin) {
-      res.send({
-        success: false,
-        message: 'This feature access is only admin',
-      })
-      return
+      query = query.eq('id', decode.id)
     }
-    const { data, error } = await supabase
-      .from('users')
-      .select('id,name,email,isAdmin')
+
+    const { data, error } = await query
+
     if (error) {
       res.json({
         success: false,

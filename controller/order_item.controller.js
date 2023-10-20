@@ -5,12 +5,20 @@ const createOrderItem = async (req, res) => {
   // #swagger.tags = ['Order Item']
 
   try {
-    const { order_id, book_id, quantity, price } = req.body
+    const { order_items } = req.body
+
+    let totalPrice = 0
+    let order_id = null
+
+    for (let i = 0; i < order_items.length; i++) {
+      order_id = order_items[i].order_id
+      totalPrice += order_items[i].price * order_items[i].quantity
+    }
 
     // insert order item
     const { data, error } = await supabase
       .from('order_items')
-      .insert([{ order_id, book_id, quantity, price }])
+      .insert(order_items)
       .select()
 
     // select order
@@ -25,7 +33,7 @@ const createOrderItem = async (req, res) => {
     // update order
     const updatedOrder = await supabase
       .from('orders')
-      .update({ total_price: order.data.total_price + quantity * price })
+      .update({ total_price: order.data.total_price + totalPrice })
       .eq('id', order_id)
       .select()
       .single()
@@ -33,7 +41,7 @@ const createOrderItem = async (req, res) => {
     console.log('updatedOrder', updatedOrder)
 
     if (error) {
-      console.log('error', error)
+      console.log('error while create order item', error)
       res.status(500).send(error)
     }
 
@@ -43,7 +51,8 @@ const createOrderItem = async (req, res) => {
       data: data,
     })
   } catch (error) {
-    throw new Error(error)
+    console.log('error while create order item', error)
+    res.status(500).send(error)
   }
 }
 

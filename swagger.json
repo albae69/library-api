@@ -7,7 +7,9 @@
   },
   "host": "api-library.cyclic.app",
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/": {
       "get": {
@@ -21,7 +23,9 @@
     },
     "/api/auth/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -55,7 +59,9 @@
     },
     "/api/auth/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -98,7 +104,9 @@
     },
     "/api/user/": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -118,7 +126,9 @@
     },
     "/api/user/{id}": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -144,7 +154,9 @@
         }
       },
       "put": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -188,7 +200,9 @@
         }
       },
       "delete": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -213,7 +227,9 @@
     },
     "/api/books/": {
       "get": {
-        "tags": ["Books"],
+        "tags": [
+          "Books"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -222,7 +238,9 @@
         }
       },
       "post": {
-        "tags": ["Books"],
+        "tags": [
+          "Books"
+        ],
         "description": "",
         "parameters": [
           {
@@ -270,7 +288,9 @@
     },
     "/api/books/{id}": {
       "get": {
-        "tags": ["Books"],
+        "tags": [
+          "Books"
+        ],
         "description": "",
         "parameters": [
           {
@@ -287,7 +307,9 @@
         }
       },
       "delete": {
-        "tags": ["Books"],
+        "tags": [
+          "Books"
+        ],
         "description": "",
         "parameters": [
           {
@@ -320,7 +342,9 @@
     },
     "/api/orders/": {
       "get": {
-        "tags": ["Order"],
+        "tags": [
+          "Order"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -338,7 +362,9 @@
         }
       },
       "post": {
-        "tags": ["Order"],
+        "tags": [
+          "Order"
+        ],
         "description": "",
         "parameters": [
           {
@@ -370,9 +396,41 @@
         }
       }
     },
+    "/api/orders/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/order_item/": {
       "post": {
-        "tags": ["Order Item"],
+        "tags": [
+          "Order Item"
+        ],
         "description": "",
         "parameters": [
           {
@@ -381,16 +439,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "order_id": {
-                  "example": "any"
-                },
-                "book_id": {
-                  "example": "any"
-                },
-                "quantity": {
-                  "example": "any"
-                },
-                "price": {
+                "order_items": {
                   "example": "any"
                 }
               }
