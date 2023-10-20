@@ -4,6 +4,7 @@ import swaggerFile from './swagger.json' assert { type: 'json' }
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+
 // import routes
 import routes from './routes/index.js'
 

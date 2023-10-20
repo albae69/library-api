@@ -9,7 +9,7 @@ const getUser = async (req, res) => {
     const decode = req.decoded
     console.log('decode', decode)
 
-    let query = supabase.from('users').select('id,name,email,isAdmin')
+    let query = supabase.from('users').select('id,name,email,balance,isAdmin')
 
     if (!decode?.isAdmin) {
       query = query.eq('id', decode.id)
@@ -31,6 +31,7 @@ const getUser = async (req, res) => {
       data: data,
     })
   } catch (error) {
+    logger.error(error)
     res.status(500).send({
       success: false,
       message: error?.message,
@@ -52,6 +53,7 @@ const getUserById = async (req, res) => {
 
     if (error) {
       res.status(500).send(error)
+
       return
     }
 
