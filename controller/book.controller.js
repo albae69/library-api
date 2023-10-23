@@ -94,6 +94,10 @@ const deleteBook = async (req, res) => {
 // create a book
 const createBook = async (req, res) => {
   // #swagger.tags = ['Books']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/createBook' }
+    } */
 
   try {
     const { title, author, price, stock } = req.body

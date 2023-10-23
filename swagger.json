@@ -5,7 +5,7 @@
     "description": "Library API Documentation",
     "version": "1.0.0"
   },
-  "host": "api-library.cyclic.app",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
     "http",
@@ -25,16 +25,6 @@
     "application/json"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/auth/login": {
       "post": {
         "tags": [
@@ -46,15 +36,7 @@
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/login"
             }
           }
         ],
@@ -82,21 +64,7 @@
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                },
-                "isAdmin": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/register"
             }
           }
         ],
@@ -193,21 +161,7 @@
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                },
-                "isAdmin": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/updateUser"
             }
           }
         ],
@@ -286,21 +240,7 @@
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "example": "any"
-                },
-                "author": {
-                  "example": "any"
-                },
-                "price": {
-                  "example": "any"
-                },
-                "stock": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/createBook"
             }
           }
         ],
@@ -420,12 +360,7 @@
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "total_price": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/createOrder"
             }
           }
         ],
@@ -496,12 +431,7 @@
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "order_items": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/createOrderItem"
             }
           }
         ],
@@ -528,21 +458,16 @@
     },
     "/api/payment/": {
       "post": {
+        "tags": [
+          "Payment"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "order_id": {
-                  "example": "any"
-                },
-                "total_price": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/createPayment"
             }
           }
         ],
@@ -566,6 +491,173 @@
           }
         ]
       }
+    }
+  },
+  "definitions": {
+    "login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "string"
+        },
+        "password": {
+          "type": "string",
+          "example": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "register": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "string"
+        },
+        "email": {
+          "type": "string",
+          "example": "string"
+        },
+        "password": {
+          "type": "string",
+          "example": "string"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "example": false
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "password",
+        "isAdmin"
+      ]
+    },
+    "createBook": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "string"
+        },
+        "author": {
+          "type": "string",
+          "example": "string"
+        },
+        "price": {
+          "type": "number",
+          "example": 0
+        },
+        "stock": {
+          "type": "number",
+          "example": 0
+        }
+      },
+      "required": [
+        "title",
+        "author",
+        "price",
+        "stock"
+      ]
+    },
+    "createOrder": {
+      "type": "object",
+      "properties": {
+        "total_price": {
+          "type": "number",
+          "example": 0
+        }
+      },
+      "required": [
+        "total_price"
+      ]
+    },
+    "createOrderItem": {
+      "type": "object",
+      "properties": {
+        "order_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "order_id": {
+                "type": "number",
+                "example": 0
+              },
+              "book_id": {
+                "type": "number",
+                "example": 0
+              },
+              "quantity": {
+                "type": "number",
+                "example": 0
+              },
+              "price": {
+                "type": "number",
+                "example": 0
+              }
+            },
+            "required": [
+              "order_id",
+              "book_id",
+              "quantity",
+              "price"
+            ]
+          }
+        }
+      },
+      "required": [
+        "order_items"
+      ]
+    },
+    "createPayment": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "number",
+          "example": 0
+        },
+        "total_price": {
+          "type": "number",
+          "example": 0
+        }
+      },
+      "required": [
+        "order_id",
+        "total_price"
+      ]
+    },
+    "updateUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "string"
+        },
+        "email": {
+          "type": "string",
+          "example": "string"
+        },
+        "password": {
+          "type": "string",
+          "example": "string"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "example": false
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "password",
+        "isAdmin"
+      ]
     }
   }
 }

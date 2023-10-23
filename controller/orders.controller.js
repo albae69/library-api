@@ -59,6 +59,10 @@ const getOrderById = async (req, res) => {
 
 const createOrder = async (req, res) => {
   // #swagger.tags = ['Order']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/createOrder' }
+    } */
 
   try {
     const { total_price } = req.body

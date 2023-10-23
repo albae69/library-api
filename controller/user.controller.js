@@ -70,6 +70,10 @@ const getUserById = async (req, res) => {
 // update User
 const updateUser = async (req, res) => {
   // #swagger.tags = ['User']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/updateUser' }
+    } */
 
   try {
     const { id } = req.params

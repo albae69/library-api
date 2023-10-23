@@ -2,6 +2,12 @@ import supabase from '../config/supabase.js'
 
 // create payment
 const createPayment = async (req, res) => {
+  // #swagger.tags = ['Payment']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/createPayment' }
+    } */
+
   try {
     const user = req.decoded
     console.log('user', user)

@@ -3,6 +3,10 @@ import supabase from '../config/supabase.js'
 // create order item
 const createOrderItem = async (req, res) => {
   // #swagger.tags = ['Order Item']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/createOrderItem' }
+    } */
 
   try {
     const { order_items } = req.body

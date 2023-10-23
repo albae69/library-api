@@ -4,6 +4,10 @@ import jwt from 'jsonwebtoken'
 
 const login = async (req, res) => {
   // #swagger.tags = ['Auth']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/login' }
+    } */
   try {
     const { email, password } = req.body
 
@@ -59,6 +63,10 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   // #swagger.tags = ['Auth']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/register' }
+    } */
 
   try {
     // get user input

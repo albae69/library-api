@@ -20,7 +20,8 @@ app.use(cors())
 
 // router
 app.get('/', (req, res) => {
-  return res.send('<h1>Library API</h1>')
+  // #swagger.ignore = true
+  res.redirect('/docs')
 })
 
 app.use('/api', routes)
