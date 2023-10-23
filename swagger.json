@@ -5,10 +5,9 @@
     "description": "Library API Documentation",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "api-library.cyclic.app",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "securityDefinitions": {
