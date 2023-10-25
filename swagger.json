@@ -143,8 +143,10 @@
             "Bearer": []
           }
         ]
-      },
-      "put": {
+      }
+    },
+    "/api/user/{id}/update": {
+      "post": {
         "tags": [
           "User"
         ],
@@ -180,8 +182,10 @@
             "Bearer": []
           }
         ]
-      },
-      "delete": {
+      }
+    },
+    "/api/user/{id}/delete": {
+      "post": {
         "tags": [
           "User"
         ],
@@ -283,8 +287,10 @@
             "description": "OK"
           }
         }
-      },
-      "delete": {
+      }
+    },
+    "/api/books/{id}/delete": {
+      "post": {
         "tags": [
           "Books"
         ],

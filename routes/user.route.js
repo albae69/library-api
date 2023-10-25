@@ -18,9 +18,9 @@ router.get('/', getUser)
 router.get('/:id', getUserById)
 
 // PUT - Update User
-router.put('/:id', updateUser)
+router.post('/:id/update', updateUser)
 
 // DELETE - User
-router.delete('/:id', deleteUser)
+router.post('/:id/delete', deleteUser)
 
 export default router

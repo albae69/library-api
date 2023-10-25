@@ -75,8 +75,8 @@ const deleteBook = async (req, res) => {
     const { error } = await supabase.from('books').delete().eq('id', id)
 
     if (error) {
-      console.log('error', error)
       res.status(500).send(error)
+      return
     }
 
     res.json({
