@@ -17,6 +17,7 @@ const login = async (req, res) => {
         success: false,
         message: 'Email or Password should not be empty',
       })
+      return
     }
 
     const { data, error } = await supabase

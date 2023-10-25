@@ -100,7 +100,18 @@ const createBook = async (req, res) => {
     } */
 
   try {
+    const image = `${req.headers?.host}/${req?.file?.path}`
     const { title, author, price, stock } = req.body
+
+    // validate user input
+    if (!title && !author && !price && !stock && !image) {
+      res.status(400).send({
+        success: false,
+        message: 'Field cant be empty!',
+      })
+      return
+    }
+
     const decode = req.decoded
     if (!decode?.isAdmin) {
       res.send({
@@ -109,9 +120,14 @@ const createBook = async (req, res) => {
       })
       return
     }
+    res.json({
+      success: true,
+      message: 'ok',
+    })
+
     const { data, error } = await supabase
       .from('books')
-      .insert([{ title, author, price, stock }])
+      .insert([{ title, author, price, stock, image }])
       .select()
 
     if (error) {
