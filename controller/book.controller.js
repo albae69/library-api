@@ -100,8 +100,8 @@ const createBook = async (req, res) => {
     } */
 
   try {
-    const image = `${req.headers?.host}/${req?.file?.path}`
     const { title, author, price, stock } = req.body
+    const image = req.imageUrl
 
     // validate user input
     if (!title && !author && !price && !stock && !image) {
@@ -111,19 +111,6 @@ const createBook = async (req, res) => {
       })
       return
     }
-
-    const decode = req.decoded
-    if (!decode?.isAdmin) {
-      res.send({
-        success: false,
-        message: 'Only admin can create a book',
-      })
-      return
-    }
-    res.json({
-      success: true,
-      message: 'ok',
-    })
 
     const { data, error } = await supabase
       .from('books')
