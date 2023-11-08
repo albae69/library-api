@@ -1,5 +1,56 @@
 import supabase from '../config/supabase.js'
 
+const groupBydId = (payment, order_items) => {
+  let grouped = {}
+  let paymentOrderId = ''
+
+  for (let i = 0; i < payment.length; i++) {
+    let element = payment[i]
+    let order_id = element.order_id
+    paymentOrderId = order_id
+    if (!grouped[order_id]) {
+      grouped[order_id] = { ...element, order_items: [] }
+    }
+  }
+
+  for (let j = 0; j < order_items.length; j++) {
+    let element = order_items[j]
+    let order_id = element.order_id
+    if (order_id == paymentOrderId) {
+      grouped[order_id].order_items.push(element)
+    }
+  }
+
+  return Object.values(grouped)
+}
+
+// get payment history
+const getPaymentHistory = async (req, res) => {
+  // #swagger.tags = ['Payment']
+  try {
+    const { data: payment, error } = await supabase
+      .from('payment')
+      .select(`*, orders(*, users(name,email))`)
+
+    const { data: order_items } = await supabase.from('order_items').select('*')
+
+    let groupedData = groupBydId(payment, order_items)
+
+    if (error) {
+      res.status(500).send(error)
+      return
+    }
+
+    res.json({
+      success: true,
+      message: 'Success get all payment history',
+      data: groupedData,
+    })
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
 // create payment
 const createPayment = async (req, res) => {
   // #swagger.tags = ['Payment']
@@ -74,4 +125,4 @@ const createPayment = async (req, res) => {
   }
 }
 
-export { createPayment }
+export { createPayment, getPaymentHistory }
